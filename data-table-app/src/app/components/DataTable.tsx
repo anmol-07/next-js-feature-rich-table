@@ -17,8 +17,8 @@ const DataTable = () => {
     const limit = 5;
 
     const [search, setSearch] = useState('');
-    const [sortBy, setSortBy] = useState<'name' | 'email'>('name');
-    const [order, setOrder] = useState<'asc' | 'desc'>('asc');
+    const [sortBy, setSortBy] = useState<string>('name');
+    const [order, setOrder] = useState<string>('asc');
 
     const fetchData = async () => {
         try {
@@ -27,13 +27,14 @@ const DataTable = () => {
                     _page: page,
                     _limit: limit,
                     _sort: sortBy,
-                    _order: order,
+                    // _order: order,
                     q: search,
                 },
             });
+            console.log(`res.headers is: `, res.headers);
 
             setData(res.data);
-            setTotal(parseInt(res.headers['x-total-count'] || '0'));
+            setTotal(parseInt(res.headers["x-total-count"] || '0'));
         } catch (err) {
             console.error('Error fetching users:', err);
         }
@@ -43,13 +44,17 @@ const DataTable = () => {
         fetchData();
     }, [page, search, sortBy, order]);
 
-    const handleSort = (field: 'name' | 'email') => {
+    const handleSort = (field: string) => {
+        let newOrder: string  = 'asc';
+    
         if (sortBy === field) {
-            setOrder(order === 'asc' ? 'desc' : 'asc');
+            newOrder = order === 'asc' ? 'desc' : 'asc';
+            setOrder(newOrder);
         } else {
-            setSortBy(field);
             setOrder('asc');
         }
+    
+        setSortBy(newOrder === 'asc' ? field : `-${field}`); // Or use `newOrder === 'asc' ? field : \`-\${field}\`` if you need to handle `-field`
     };
 
     return (
@@ -71,10 +76,10 @@ const DataTable = () => {
                 <thead>
                     <tr>
                         <th className="border p-2 cursor-pointer" onClick={() => handleSort('name')}>
-                            Name {sortBy === 'name' ? (order === 'asc' ? '▲' : '▼') : ''}
+                            Name {sortBy === 'name' ? '▲' : sortBy === '-name' ? '▼' : ''}
                         </th>
                         <th className="border p-2 cursor-pointer" onClick={() => handleSort('email')}>
-                            Email {sortBy === 'email' ? (order === 'asc' ? '▲' : '▼') : ''}
+                            Email {sortBy === 'email' ? '▲' : sortBy === '-email' ? '▼' : ''}
                         </th>
                     </tr>
                 </thead>

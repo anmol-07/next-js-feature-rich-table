@@ -8,6 +8,7 @@ export default function Home() {
   return (
     <main>
       <h1 className="p-4 text-xl font-bold">User Table</h1>
+      {/* Calling main DataTable Component */}
       <DataTable />
     </main>
   );

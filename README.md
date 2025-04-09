@@ -13,7 +13,7 @@ The project uses 2 main parts
 # Next JS Server initialization
 
 1. As npm install was done earlier only in other terminal switch to node version >= 18 again.
-2. Then do npm run dev, to start the Next.JS server.
+2. Then again do cd data-table-app and after that do npm run dev, to start the Next.JS server.
 
 
 # Some improvements which could be done

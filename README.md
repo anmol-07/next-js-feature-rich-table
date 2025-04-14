@@ -23,7 +23,7 @@ To get the backend up and running:
     Make sure you're using Node.js version 18 or higher. You can check your current version by running:
     ```node -v```
 
-    # Then, install the dependencies listed in package.json:
+    ### Then, install the dependencies listed in package.json:
     ```npm install```
 
 3. **Start the JSON Server:**
